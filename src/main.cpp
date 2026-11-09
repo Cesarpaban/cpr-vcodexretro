@@ -52,6 +52,7 @@
 #include "activities/settings/OtaUpdateActivity.h"
 #include "activities/settings/SdFirmwareUpdateActivity.h"
 #include "components/UITheme.h"
+#include "components/themes/system6/System6Fonts.h"
 #include "fontIds.h"
 #include "network/KOReaderSyncRecovery.h"
 #include "platform/UsbSerialJtagHandoff.h"
@@ -549,6 +550,7 @@ void setupDisplayAndFonts(bool seamless = false, bool loadReaderResources = true
   display.begin(seamless);
   renderer.begin();
   renderer.setDarkMode(SETTINGS.darkMode);
+  registerSystem6Fonts(renderer);  // UI font swap is active only while the System 6 theme is selected
   activityManager.begin();
   LOG_DBG("MAIN", "Display initialized");
 

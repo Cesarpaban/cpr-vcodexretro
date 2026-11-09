@@ -19,6 +19,7 @@
 #include "components/themes/lyra/LyraCustomTheme.h"
 #include "components/themes/lyra/LyraTheme.h"
 #include "components/themes/roundedraff/RoundedRaffTheme.h"
+#include "components/themes/system6/System6Theme.h"
 
 namespace {
 constexpr int SKIP_PAGE_MS = 700;
@@ -69,6 +70,18 @@ void UITheme::setTheme(CrossPointSettings::UI_THEME type) {
       currentTheme = std::make_unique<RoundedRaffTheme>();
       currentMetrics = &RoundedRaffMetrics::values;
       break;
+    case CrossPointSettings::UI_THEME::SYSTEM6: {
+      // Stateless theme: one vptr, no per-frame allocation (see static_assert).
+      auto theme = makeUniqueNoThrow<System6Theme>();
+      if (!theme) {
+        LOG_ERR("UI", "OOM: System 6 theme");
+        return;
+      }
+      currentTheme = std::move(theme);
+      currentMetrics = &System6Metrics::values;
+      LOG_DBG("UI", "Using System 6 theme");
+      break;
+    }
     case CrossPointSettings::UI_THEME::LYRA_CAROUSEL:
       LOG_DBG("UI", "Using Lyra Carousel theme");
       currentTheme = std::make_unique<LyraCarouselTheme>();

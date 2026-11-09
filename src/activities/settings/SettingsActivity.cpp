@@ -114,6 +114,7 @@ std::vector<StrId> buildUiThemeValues() {
   values[CrossPointSettings::ROUNDEDRAFF] = StrId::STR_THEME_ROUNDEDRAFF;
   values[CrossPointSettings::LYRA_3_COVERS] = StrId::STR_THEME_LYRA_EXTENDED;
   values[CrossPointSettings::COVER_GRID] = StrId::STR_THEME_COVER_GRID;
+  values[CrossPointSettings::SYSTEM6] = StrId::STR_THEME_SYSTEM6;
   return values;
 }
 

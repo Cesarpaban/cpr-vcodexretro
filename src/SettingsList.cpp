@@ -156,6 +156,7 @@ std::vector<SettingInfo> getSettingsList(const SdCardFontRegistry* registry) {
     uiThemeValues[CrossPointSettings::ROUNDEDRAFF] = StrId::STR_THEME_ROUNDEDRAFF;
     uiThemeValues[CrossPointSettings::LYRA_3_COVERS] = StrId::STR_THEME_LYRA_EXTENDED;
     uiThemeValues[CrossPointSettings::COVER_GRID] = StrId::STR_THEME_COVER_GRID;
+    uiThemeValues[CrossPointSettings::SYSTEM6] = StrId::STR_THEME_SYSTEM6;
 
     std::vector<StrId> shortPwrBtnValues(CrossPointSettings::SHORT_PWRBTN_COUNT);
     shortPwrBtnValues[CrossPointSettings::IGNORE] = StrId::STR_IGNORE;

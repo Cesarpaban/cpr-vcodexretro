@@ -43,5 +43,29 @@ inline freeink::ui::ThemeTokens uiThemeTokens(const freeink::ui::GfxRendererTarg
   tokens.sheetRadius = static_cast<uint8_t>(metrics.sheetRadius);
   tokens.capsuleRadius = static_cast<uint8_t>(metrics.capsuleRadius);
   tokens.bodyText.bold = metrics.listTitleBold;
+  if (SETTINGS.uiTheme == CrossPointSettings::UI_THEME::SYSTEM6) {
+    // Shared SDK screens (settings, reader menus, keyboard) use these tokens:
+    // square 2px-bordered controls, inverted when selected, like System 6.
+    for (auto* styles : {&tokens.button, &tokens.key, &tokens.popup, &tokens.textField}) {
+      styles->explicitlySet = true;
+      styles->normal.radius = 0;
+      styles->selected.radius = 0;
+      styles->focused.radius = 0;
+      styles->active.radius = 0;
+      styles->normal.border = fui::Paint::solid(fui::Color::Black);
+      styles->normal.borderWidth = 2;
+      styles->normal.background = fui::Paint::solid(fui::Color::White);
+      styles->normal.foreground = fui::Paint::solid(fui::Color::Black);
+      styles->selected = styles->normal;
+      styles->selected.background = fui::Paint::solid(fui::Color::Black);
+      styles->selected.foreground = fui::Paint::solid(fui::Color::White);
+      styles->focused = styles->selected;
+      styles->active = styles->selected;
+      styles->disabled = styles->normal;
+      styles->disabled.foreground = fui::Paint::dither(fui::Color::LightGray);
+    }
+    tokens.headerUnderline = 2;
+    tokens.titleText.bold = true;
+  }
   return tokens;
 }

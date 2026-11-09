@@ -279,7 +279,8 @@ void GfxRenderer::insertFont(const int fontId, EpdFontFamily font) {
   }
 }
 
-int GfxRenderer::resolveTextFontId(const int fontId, const char* text, const EpdFontFamily::Style style) const {
+int GfxRenderer::resolveTextFontId(int fontId, const char* text, const EpdFontFamily::Style style) const {
+  if (fontResolver_) fontId = fontResolver_(fontId, text, style);
   if (fallbackFontMap_.empty() || text == nullptr || *text == '\0') {
     return fontId;
   }

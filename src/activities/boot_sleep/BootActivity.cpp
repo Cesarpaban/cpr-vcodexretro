@@ -3,6 +3,8 @@
 #include <GfxRenderer.h>
 #include <I18n.h>
 
+#include "CrossPointSettings.h"
+#include "components/themes/system6/System6Theme.h"
 #include "fontIds.h"
 #include "images/Logo.h"
 #include "version.h"
@@ -29,6 +31,14 @@ void BootActivity::onEnter() {
   const int subtitleY = titleY + SUBTITLE_GAP;
 
   renderer.clearScreen();
+  if (SETTINGS.uiTheme == CrossPointSettings::SYSTEM6) {
+    drawSystem6BootSplash(renderer, tr(STR_CPR_VCODEX), tr(STR_BOOTING), CROSSPOINT_VERSION);
+    renderer.displayBuffer();
+    if (restoreDarkMode) {
+      renderer.setDarkMode(true);
+    }
+    return;
+  }
   renderer.drawIcon(Logo, logoX, logoY, BOOT_LOGO_WIDTH, BOOT_LOGO_HEIGHT);
   renderer.drawCenteredText(UI_10_FONT_ID, titleY, tr(STR_CPR_VCODEX), true, EpdFontFamily::BOLD);
   renderer.drawCenteredText(SMALL_FONT_ID, subtitleY, tr(STR_BOOTING));

@@ -112,6 +112,11 @@ class GfxRenderer {
   // app-level SD font setup when an SD family is loaded. See resolveTextFontId().
   std::map<int, int> fallbackFontMap_;
 
+  // Optional theme hook: may swap a UI font id for another registered id before
+  // the script-fallback routing below runs. nullptr (default) leaves every id
+  // untouched. Used by the System 6 theme to draw UI chrome with its bitmap font.
+  int (*fontResolver_)(int, const char*, EpdFontFamily::Style) = nullptr;
+
   // If `text` contains a CJK codepoint that `fontId` cannot render and `fontId`
   // has a registered fallback, returns the fallback id; otherwise returns
   // fontId unchanged. The whole string is routed as a unit so each draw/measure
@@ -152,6 +157,7 @@ class GfxRenderer {
   // Setup
   void begin();  // must be called right after display.begin()
   void insertFont(int fontId, EpdFontFamily font);
+  void setFontResolver(int (*resolver)(int, const char*, EpdFontFamily::Style)) { fontResolver_ = resolver; }
   void removeFont(int fontId) {
     fontMap.erase(fontId);
     sdCardFonts_.erase(fontId);
